@@ -3,20 +3,16 @@ import pandas as pd
 from metapub import PubMedFetcher
 import time
 fetch = PubMedFetcher()
-
-df = pd.read_excel('Journals_PMID.xlsx', dtype=str)
-with open('pmlist.txt' , 'w') as wrtf:
-  for i, column in enumerate(df):
-    pmids = df[column].tolist()
-    for j, pmid in enumerate(pmids):
-      if str(pmid) != 'nan':
-        wrtf.write(str(pmid) + '\n')
-        print ('Journal: ' + str(i) + ' | Abs: ' + str(j))
+import os
+import glob
 
 
 
-with open('abs.txt' , 'w') as wrtf:
-  pmids = [line.rstrip('\n') for line in open('pmlist.txt')]
+path, pmids = '/home/bear/bigdata/', []
+pmidfs = glob.glob("data/*pmids.txt")
+for f in pmidfs:
+  pmids += [line.rstrip('\n') for line in open(f)]
+with open(os.path.join(path, 'liver.txt') , 'w') as wrtf:
   print('Totaly: ' + str(len(pmids)) + ' papers')
   for j, pmid in enumerate(pmids):
       try:
@@ -26,7 +22,17 @@ with open('abs.txt' , 'w') as wrtf:
           print (' | Abs: ' + str(j) + ' downloaded for: ' + pmid)
       except:
         print('download fail for: ' + ' | Abs: ' + str(j) + ' pmid: ' + pmid)
+
+
 '''
+df = pd.read_excel('Journals_PMID.xlsx', dtype=str)
+with open('pmlist.txt' , 'w') as wrtf:
+  for i, column in enumerate(df):
+    pmids = df[column].tolist()
+    for j, pmid in enumerate(pmids):
+      if str(pmid) != 'nan':
+        wrtf.write(str(pmid) + '\n')
+        print ('Journal: ' + str(i) + ' | Abs: ' + str(j))
 
 df = pd.read_excel('Journals_PMID.xlsx', dtype=str)
 with open('abs.txt' , 'w') as wrtf:
