@@ -1,5 +1,6 @@
 import string
 import nltk
+import os
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize 
@@ -15,10 +16,10 @@ def remove_stopwords(s):
       filtered_sentence.append(w) 
   return ' '.join(filtered_sentence)
 i = 1
-with open('tox_train.txt', 'w') as wf:
- with open('tox.txt', 'r') as rf:
+with open(os.path.join('/home/bear/bigdata/', 'tox30000.txt'), 'w') as wf:
+ with open('/home/bear/bigdata/tox_allinfor.txt', 'r') as rf:
   for line in rf:
-   if '-##-' in line:
+   if '-##-' in line and i < 30000:
     s = line.split('-##-', 1)[1].replace('\n', '').lower()
     s = s.translate(str.maketrans('', '', string.punctuation))
     s = remove_stopwords(s)
