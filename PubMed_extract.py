@@ -18,10 +18,11 @@ with open(os.path.join(path, 'liver.txt') , 'w') as wrtf:
       try:
         download = fetch.article_by_pmid(pmid)
         if download.abstract and download.journal and download.year:
-          wrtf.write(download.journal + '-!!-' + str(download.year) + '-##-' + download.abstract + '\n')
+          wrtf.write(download.journal + '-!!-' + str(download.year) + '-##-' + download.abstract.replace('\n',' ') + '\n')
           print (' | Abs: ' + str(j) + ' downloaded for: ' + pmid)
       except:
         print('download fail for: ' + ' | Abs: ' + str(j) + ' pmid: ' + pmid)
+
 
 
 '''
