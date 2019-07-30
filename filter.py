@@ -20,7 +20,7 @@ clip_cosine_similarities = tf.clip_by_value(cosine_similarities, -1.0, 1.0)
 sim_scores = 1.0 - tf.acos(clip_cosine_similarities)
 
 def buildSentences(s):
-  fs = line.split('-!!-')
+  fs = s.split('-!!-')
   ss = fs[1].split('-##-')
   sentences = re.split(r'(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?)\s', ss[0])
   sentences.append(fs[0])
